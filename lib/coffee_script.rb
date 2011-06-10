@@ -1,4 +1,3 @@
-require 'execjs'
 require 'coffee_script/source'
 
 module CoffeeScript
@@ -28,7 +27,10 @@ module CoffeeScript
     end
 
     def self.context
-      @context ||= ExecJS.compile(contents)
+      @context ||= begin
+        require 'execjs'
+        ExecJS.compile(contents)
+      end
     end
   end
 
